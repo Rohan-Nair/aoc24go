@@ -10,6 +10,52 @@ import (
 )
 
 func main(){
+  p2()
+}
+
+func p2() {
+  data, err:= os.ReadFile("ip1.txt")
+  if err != nil {
+    log.Fatal(err)
+  }
+  lines := strings.Split(string(data), "\n")
+  var list1 []int
+  // getting freq of items in list2 
+  freq := make(map[int]int)
+
+  // ans
+  var ans int
+
+  for _, line := range lines {
+    // trimming the leading or trailing whitespace
+    line = strings.TrimSpace(line)
+    if line == ""{
+      continue
+    }
+
+    // splitting the line into parts
+    parts := strings.Fields(line)
+
+    // converting to integers
+    first, err1 := strconv.Atoi(parts[0])
+    second, err2 := strconv.Atoi(parts[1])
+
+    if err1 != nil || err2 != nil{
+      return
+    }
+
+    list1 = append(list1, first)
+    freq[second]++
+  }
+
+  for _, val := range list1 {
+    ans += val * freq[val]
+  }
+
+  fmt.Println(ans)
+}
+
+func p1() {
   data, err:= os.ReadFile("ip1.txt")
   if err != nil {
     log.Fatal(err)
@@ -52,7 +98,6 @@ func main(){
   }
 
   fmt.Println(sum)
-
 }
 
 func max(a, b int) int {
